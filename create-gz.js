@@ -4,7 +4,6 @@ const zlib = require('zlib');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const AWS = require('aws-sdk');
-const uuid = require('uuid/v4');
 const stream = require('stream');
 
 AWS.config.loadFromPath('./aws-config.json');
@@ -22,7 +21,7 @@ const uploadStream = (s3Path) => {
       ContentEncoding: 'gzip',
     }).promise()
   };
-}
+};
 
 const basePath = path.resolve('./processed-logs');
 const basePathLength = basePath.length;
@@ -33,7 +32,7 @@ walker.on('file', (root, fileStats, next) => {
     return next();
   }
 
-  const s3Path = `processed-logs${root.substr(basePathLength).replace(/\\/g, '/')}/${fileStats.name.replace('.json', '')}-00-00-${uuid()}.gz`;
+  const s3Path = `processed-logs${root.substr(basePathLength).replace(/\\/g, '/')}/${fileStats.name.replace('.json', '')}.gz`;
   console.log(s3Path);
 
   const gzip = zlib.createGzip();

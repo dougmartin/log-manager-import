@@ -131,7 +131,7 @@ pool.connect().then((client) => {
     const dir = `./processed-logs/${year}/${month}/${day}/${hour}`;
     rowsToWrite++;
     mkdirp(dir, () => {
-      const filename = `${dir}/log-manager-2-${year}-${month}-${day}.json`;
+      const filename = `${dir}/log-manager-imported-${year}-${month}-${day}-${hour}.json`;
       fs.appendFileSync(filename, JSON.stringify(row) + '\n');
       if (rowsToWrite === 0) {
         process.exit();

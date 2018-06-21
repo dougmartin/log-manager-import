@@ -15,3 +15,8 @@
   k. heroku pg:backups:download --app cc-log-manager
   l. pg_restore --verbose --clean --jobs=2 --no-acl --no-owner -h localhost -U postgres -d log_manager latest.dump
   m. WAIT A LONG TIME (1 HOUR?)
+  n. git clone https://github.com/dougmartin/log-manager-import.git
+  o. cd log-manager-import
+  p. npm install
+  q. create aws-config.json
+
