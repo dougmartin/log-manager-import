@@ -27,6 +27,7 @@ const basePath = path.resolve('./processed-logs');
 const basePathLength = basePath.length;
 const walker = walk.walk(basePath, {});
 
+let fileNumber = 0;
 walker.on('file', (root, fileStats, next) => {
   if (path.extname(fileStats.name) !== '.json') {
     return next();
@@ -39,11 +40,9 @@ walker.on('file', (root, fileStats, next) => {
   const { writeStream, promise } = uploadStream(s3Path);
   const readStream = fs.createReadStream(path.resolve(root, fileStats.name));
 
-  console.log(root);
+  console.log(++fileNumber, root);
   readStream.pipe(gzip).pipe(writeStream);
-  promise.then(next).catch(err => {
-    console.error(err);
-  });
+  promise.then(next).catch(console.error);
 });
 
 walker.on("end", function () {
